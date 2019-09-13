@@ -39,3 +39,7 @@ az monitor autoscale create --resource-group $resourcegroupname --name "${appnam
 az monitor autoscale rule create --resource-group $resourcegroupname --autoscale-name "${appname}-AutoscaleSettings" --scale out 1 --condition "CpuPercentage > 75 avg 5m"
 
 az monitor autoscale rule create --resource-group $resourcegroupname --autoscale-name "${appname}-AutoscaleSettings" --scale in 1 --condition "CpuPercentage < 25 avg 5m"
+
+#Configure Front Door
+az extension add --name front-door
+az network front-door create -g notejam-rg -n "$appname-fd" --backend-address "$appname.azurewebsites.net"
